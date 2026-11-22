@@ -69,13 +69,13 @@ class ImsModifier : Instrumentation() {
                 bundle.putString(CarrierConfigManager.KEY_CARRIER_CONFIG_VERSION_STRING, ":3")
             }
             // 运营商国家码
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                if (countryISO?.isNotBlank() == true) {
-                    bundle.putString(
-                        CarrierConfigManager.KEY_SIM_COUNTRY_ISO_OVERRIDE_STRING,
-                        countryISO
-                    )
-                }
+            // Android 10 适配: 取消 API 34 限制。KEY_SIM_COUNTRY_ISO_OVERRIDE_STRING 是编译期常量,
+            // 在 Android 10 上写入该 key 会被系统忽略(平台从 API 34 才识别),但写入本身无害。
+            if (countryISO?.isNotBlank() == true) {
+                bundle.putString(
+                    CarrierConfigManager.KEY_SIM_COUNTRY_ISO_OVERRIDE_STRING,
+                    countryISO
+                )
             }
             normalizeMccForOverride(countryMcc)?.let {
                 bundle.putString(BUNDLE_COUNTRY_MCC_OVERRIDE, it)
