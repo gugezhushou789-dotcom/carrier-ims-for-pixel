@@ -4,7 +4,7 @@ kotlin = "2.3.0"
 
 app-version = "3.9.1"
 android-compileSdk = "36"
-android-minSdk = "33"
+android-minSdk = "29"
 android-targetSdk = "36"
 
 hiddenapibypass = "6.1"
